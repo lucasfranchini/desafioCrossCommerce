@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import * as Service from "@/services/numberService";
 
 export async function getAllOrdered(req: Request, res: Response) {
-  res.sendStatus(200);
+  const orderedArray =  await Service.getAllOrdered();
+  res.send(orderedArray);
 }

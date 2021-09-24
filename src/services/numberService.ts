@@ -1,3 +1,6 @@
+import * as repository from "@/repositories/numberRepository";
+
 export async function getAllOrdered() {
-  return false;
+  const array = await repository.getAll();
+  return array;
 }
