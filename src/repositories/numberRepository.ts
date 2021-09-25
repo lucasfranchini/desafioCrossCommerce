@@ -4,12 +4,12 @@ import axios from "axios";
 export async function getAll() {
   let isLastArray = false;
   let i = 1;
-  let array: number[] = [];
+  const array: number[] = [];
   while(!isLastArray) {
     try{
-      const result = await axios.get(`http://challenge.dienekes.com.br/api/numbers?page=${i}`);
-      if(result.data.numbers.length===0)isLastArray = true;
-      else array = [...array, result.data.numbers];
+      const newArray = await getPage(i);
+      if(newArray.length===0)isLastArray = true;
+      else array.push(...newArray);
       i++;
     }
     catch(e) {
@@ -19,4 +19,9 @@ export async function getAll() {
   }
   if(array.length === 0) throw new InvalidRequestError();
   return array;
+}
+
+export async function getPage(id: number) {
+  const result = await axios.get(`http://challenge.dienekes.com.br/api/numbers?page=${id}`);
+  return result.data.numbers;
 }

@@ -1,8 +1,27 @@
 import * as repository from "@/repositories/numberRepository";
 
 export async function getAllOrdered() {
-  //const array = await repository.getAll();
-  const array = [1, 3, 5, 7, 9, 4, 6, 8, 2, 10, 12, 15, -1, 0.3];
+  const array = await repository.getAll();
+  /*let isLastArray = false;
+  let i = 1;
+  let array: number[] = [];
+  while(!isLastArray) {
+    try{
+      const newArray = await repository.getPage(i);
+      if(newArray.length===0)isLastArray = true;
+      else {
+        orderArray(newArray);
+        array = [...array, newArray];
+      }
+      i++;
+    }
+    catch(e) {
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
+  }
+  if(array.length === 0) throw new InvalidRequestError();
+  return array;*/
   orderArray(array);
   return array;
 }
