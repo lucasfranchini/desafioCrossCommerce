@@ -14,7 +14,10 @@ export async function getAll() {
     }
     catch(e) {
       // eslint-disable-next-line no-console
-      console.log(e);
+      console.log(e.response);
+      if(e.response.data.error !=="Simulated internal error") {
+        isLastArray =true;
+      }
     }
   }
   if(array.length === 0) throw new InvalidRequestError();
