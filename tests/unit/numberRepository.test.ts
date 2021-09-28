@@ -1,6 +1,5 @@
 import * as numberRepository from "../../src/repositories/numberRepository";
 import axios from "axios";
-import axiosTestError from "../../src/errors/axiosTestError";
 
 describe("getAll", () => {
   it("it throws an error for emptyArray in first get", async () => {
