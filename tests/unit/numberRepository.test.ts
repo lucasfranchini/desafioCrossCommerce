@@ -1,9 +1,15 @@
 import * as numberRepository from "../../src/repositories/numberRepository";
 import axios from "axios";
+import axiosTestError from "../../src/errors/axiosTestError";
 
 describe("getAll", () => {
   it("it throws an error for emptyArray in first get", async () => {
     jest.spyOn(axios, "get").mockImplementation(async () => {return { data: { numbers: [] } };});
+    const result = () => numberRepository.getAll();
+    await expect(result).rejects.toThrow(Error);
+  });
+  it("it throws an error for axios error", async () => {
+    jest.spyOn(axios, "get").mockImplementationOnce(async () => {return undefined; });
     const result = () => numberRepository.getAll();
     await expect(result).rejects.toThrow(Error);
   });
