@@ -22,9 +22,9 @@ export async function getAll() {
       i = j;
     }
     catch(e) {
-    // eslint-disable-next-line no-console
-      console.log(e.response);
       if(e.response.data.error !=="Simulated internal error") {
+        // eslint-disable-next-line no-console
+        console.log(e.response);
         isLastArray =true;
       }
     }
