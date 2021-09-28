@@ -5,7 +5,7 @@ export async function getAll() {
   let isLastArray = false;
   let i = 1;
   const array: number[] = [];
-  while(!isLastArray ) {
+  while(!isLastArray) {
     try{
       const requisicoes: Promise<number[]>[] = [];
       let j = i;
@@ -15,6 +15,7 @@ export async function getAll() {
       }
       const numbers: number[]= [];
       for await (const req of requisicoes) {
+        if(req===undefined) throw new Error("Remake Requisition");
         numbers.push(...req);
         if(req.length===0)isLastArray = true;
       }
@@ -22,11 +23,7 @@ export async function getAll() {
       i = j;
     }
     catch(e) {
-      if(e.response.data.error !=="Simulated internal error") {
-        // eslint-disable-next-line no-console
-        console.log(e.response);
-        isLastArray =true;
-      }
+      if(e.message !== "Remake Requisition")throw new InvalidRequestError();
     }
   }
   if(array.length === 0) throw new InvalidRequestError();
@@ -34,6 +31,15 @@ export async function getAll() {
 }
 
 export async function getPage(id: number): Promise<number[]> {
-  const result = await axios.get(`http://challenge.dienekes.com.br/api/numbers?page=${id}`);
-  return result.data.numbers;
+  try{
+    const result = await axios.get(`http://challenge.dienekes.com.br/api/numbers?page=${id}`);
+    return result.data.numbers;
+  }
+  catch(e) {
+    if(e.response.data.error !=="Simulated internal error") {
+      // eslint-disable-next-line no-console
+      console.log(e.response);
+      throw new InvalidRequestError();
+    }
+  }
 }
