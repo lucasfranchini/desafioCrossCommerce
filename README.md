@@ -9,9 +9,8 @@ então é normal ter que esperar um pouco para ela carregar com todos os dados
 
 ## Como Rodar o servidor
 1. Clone este repositorio
-2. crie uma Database do postgres com o nome funcional
-3. crie uma .env com as variaveis do .env.example
-4. inicie o servidor com:
+2. crie uma .env com as variaveis do .env.example
+3. inicie o servidor com:
 ```
 npm run dev
 ```
